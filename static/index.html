@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AfterMath — BNPL stacking tracker</title>
+  <style>
+    :root {
+      --bg: #0e1116;
+      --panel: #171c24;
+      --line: #2a3340;
+      --text: #e8edf4;
+      --muted: #93a0b3;
+      --gold: #d4a574;
+      --ok: #7dcea0;
+      --bad: #e07a7a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(1200px 500px at 10% -10%, #1c2430, var(--bg));
+      color: var(--text);
+    }
+    header {
+      padding: 1.25rem 1.5rem 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+    h1 { font-weight: 650; letter-spacing: -0.03em; margin: 0; }
+    h1 span { color: var(--gold); }
+    .tag { color: var(--muted); font-size: 0.95rem; }
+    main {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1rem;
+      padding: 1rem 1.5rem 2rem;
+    }
+    @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1rem;
+    }
+    label { display: block; font-size: 0.8rem; color: var(--muted); margin: 0.6rem 0 0.25rem; }
+    input, textarea, select {
+      width: 100%;
+      background: #10151c;
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.55rem 0.7rem;
+      font: inherit;
+    }
+    textarea { min-height: 140px; resize: vertical; }
+    .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
+    button {
+      background: var(--gold);
+      color: #1a1208;
+      border: 0;
+      border-radius: 8px;
+      padding: 0.6rem 0.9rem;
+      font-weight: 650;
+      cursor: pointer;
+      margin-top: 0.7rem;
+      margin-right: 0.4rem;
+    }
+    button.secondary { background: #2a3340; color: var(--text); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { text-align: left; padding: 0.4rem 0.2rem; border-bottom: 1px solid var(--line); }
+    .msg { white-space: pre-wrap; line-height: 1.45; }
+    .cite { font-size: 0.8rem; color: var(--muted); margin-top: 0.75rem; }
+    .disclaimer { color: var(--muted); font-size: 0.8rem; margin-top: 1rem; }
+    .ok { color: var(--ok); }
+    .bad { color: var(--bad); }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>After<span>Math</span></h1>
+      <div class="tag">After the tap, before the due. Track stacked BNPL — simulate, don’t borrow.</div>
+    </div>
+  </header>
+  <main>
+    <section>
+      <div class="row">
+        <div>
+          <label>User id</label>
+          <input id="user" value="demo" />
+        </div>
+        <div>
+          <label>Thread id</label>
+          <input id="thread" />
+        </div>
+        <div>
+          <label>Cash this payday</label>
+          <input id="cash" type="number" value="250" />
+        </div>
+      </div>
+      <label>Paste a statement, or ask a question / request a plan</label>
+      <textarea id="message" placeholder="Paste Klarna / Afterpay / Affirm text, or ask: what hits in 7 days?"></textarea>
+      <label>Upload .txt or .pdf</label>
+      <input id="file" type="file" accept=".txt,.md,.pdf" />
+      <div>
+        <button type="button" onclick="run('ingest')">Extract plans</button>
+        <button type="button" class="secondary" onclick="run('ask')">Ask</button>
+        <button type="button" class="secondary" onclick="run('plan')">Simulate payoff</button>
+        <button type="button" class="secondary" onclick="upload()">Upload file</button>
+      </div>
+      <p class="disclaimer">Simulation only. AfterMath does not approve credit or recommend new BNPL.</p>
+    </section>
+    <section>
+      <h3 style="margin-top:0">Answer</h3>
+      <div id="answer" class="msg">Ready.</div>
+      <div id="cites" class="cite"></div>
+      <h3>Stored obligations</h3>
+      <div id="table">None yet.</div>
+    </section>
+  </main>
+  <script>
+    document.getElementById("thread").value = crypto.randomUUID();
+
+    async function refresh() {
+      const user = document.getElementById("user").value || "demo";
+      const res = await fetch("/obligations/" + encodeURIComponent(user));
+      const data = await res.json();
+      renderTable(data.obligations || []);
+    }
+
+    function renderTable(rows) {
+      if (!rows.length) {
+        document.getElementById("table").textContent = "None yet.";
+        return;
+      }
+      const html = ["<table><tr><th>Merchant</th><th>Provider</th><th>Due</th><th>Installment</th><th>Remaining</th></tr>"];
+      for (const r of rows) {
+        html.push(`<tr><td>${r.merchant}</td><td>${r.provider}</td><td>${r.next_due_date}</td><td>${r.installment_amount}</td><td>${r.remaining_balance}</td></tr>`);
+      }
+      html.push("</table>");
+      document.getElementById("table").innerHTML = html.join("");
+    }
+
+    async function run(intent) {
+      const body = {
+        user_id: document.getElementById("user").value || "demo",
+        thread_id: document.getElementById("thread").value,
+        message: document.getElementById("message").value,
+        available_cash: Number(document.getElementById("cash").value || 0),
+        intent
+      };
+      document.getElementById("answer").textContent = "Running " + intent + "…";
+      const res = await fetch("/run", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        document.getElementById("answer").textContent = data.detail || JSON.stringify(data);
+        return;
+      }
+      document.getElementById("answer").textContent = data.answer || JSON.stringify(data.plan || data, null, 2);
+      const cites = (data.citations || []).map(c => `${c.source} (score ${c.score})`).join(" · ");
+      document.getElementById("cites").textContent = cites ? "Sources: " + cites : "";
+      renderTable(data.obligations || []);
+    }
+
+    async function upload() {
+      const file = document.getElementById("file").files[0];
+      if (!file) {
+        document.getElementById("answer").textContent = "Choose a file first.";
+        return;
+      }
+      const user = document.getElementById("user").value || "demo";
+      const fd = new FormData();
+      fd.append("file", file);
+      document.getElementById("answer").textContent = "Extracting…";
+      const res = await fetch("/ingest/file?user_id=" + encodeURIComponent(user), { method: "POST", body: fd });
+      const data = await res.json();
+      document.getElementById("answer").textContent = data.answer || JSON.stringify(data);
+      renderTable(data.obligations || []);
+    }
+
+    refresh();
+  </script>
+</body>
+</html>

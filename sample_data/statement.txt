@@ -1,0 +1,26 @@
+Klarna order confirmation
+Merchant: Nike
+Order total: $120.00
+Pay in 4 of $30.00
+Remaining balance: $90.00
+Remaining installments: 3
+Next payment due: 2026-09-12
+Late fee if missed: $7.00
+
+Afterpay
+Merchant: Sephora
+Total $84.00 — 4x $21.00
+You've paid 1 installment. Remaining $63.00
+Next due 2026-09-05
+
+Affirm
+Merchant: Best Buy
+Laptop plan: $450 remaining, $75 monthly
+Next due 2026-09-18
+3 remaining payments after this one? remaining_installments 6, installment 75
+
+PayPal Pay in 4
+Merchant: Uber Eats
+$48 split into $12
+Next due 2026-09-03
+Remaining $36
