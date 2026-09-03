@@ -1,192 +1,1533 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AfterMath — BNPL stacking tracker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AfterMath</title>
+
   <style>
     :root {
-      --bg: #0e1116;
-      --panel: #171c24;
-      --line: #2a3340;
-      --text: #e8edf4;
-      --muted: #93a0b3;
-      --gold: #d4a574;
-      --ok: #7dcea0;
-      --bad: #e07a7a;
+      --bg: #f6f5f2;
+      --card: #ffffff;
+      --text: #252329;
+      --muted: #77737d;
+      --border: #e7e4e8;
+
+      --purple: #73558f;
+      --purple-dark: #604477;
+      --purple-light: #f1edf5;
+
+      --green: #39745a;
+      --green-light: #eaf4ee;
+
+      --red: #a65353;
+      --red-light: #f8ecec;
+
+      --shadow: 0 2px 12px rgba(35, 30, 40, 0.05);
     }
-    * { box-sizing: border-box; }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: "Segoe UI", system-ui, sans-serif;
-      background: radial-gradient(1200px 500px at 10% -10%, #1c2430, var(--bg));
+      background: var(--bg);
       color: var(--text);
+      font-family:
+        "Segoe UI",
+        -apple-system,
+        BlinkMacSystemFont,
+        sans-serif;
     }
+
+    /* ---------------- HEADER ---------------- */
+
     header {
-      padding: 1.25rem 1.5rem 0.5rem;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 20px 32px;
+
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      gap: 1rem;
-      align-items: baseline;
-      flex-wrap: wrap;
     }
-    h1 { font-weight: 650; letter-spacing: -0.03em; margin: 0; }
-    h1 span { color: var(--gold); }
-    .tag { color: var(--muted); font-size: 0.95rem; }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 11px;
+
+      background: var(--purple);
+      color: #fff;
+
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .brand-name {
+      margin: 0;
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-subtitle {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* ---------------- PAGE ---------------- */
+
     main {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 42px 32px 64px;
+    }
+
+    .intro {
+      margin-bottom: 30px;
+    }
+
+    .intro h1 {
+      margin: 0 0 8px;
+
+      font-size: 31px;
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+    }
+
+    .intro p {
+      max-width: 650px;
+      margin: 0;
+
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ---------------- SUMMARY ---------------- */
+
+    .summary {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 1rem;
-      padding: 1rem 1.5rem 2rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+
+      margin-bottom: 18px;
     }
-    @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
-    section {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 1rem;
+
+    .summary-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+
+      padding: 18px 20px;
+
+      box-shadow: var(--shadow);
     }
-    label { display: block; font-size: 0.8rem; color: var(--muted); margin: 0.6rem 0 0.25rem; }
-    input, textarea, select {
+
+    .summary-label {
+      margin-bottom: 7px;
+
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .summary-value {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .summary-detail {
+      margin-top: 4px;
+
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* ---------------- MAIN GRID ---------------- */
+
+    .grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+
+      padding: 22px;
+
+      box-shadow: var(--shadow);
+    }
+
+    .card + .card {
+      margin-top: 18px;
+    }
+
+    .card-title {
+      margin: 0;
+
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+    }
+
+    .card-description {
+      margin: 6px 0 20px;
+
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* ---------------- FORM ---------------- */
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+
+      margin-bottom: 6px;
+
+      color: #5f5b63;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    input,
+    textarea {
       width: 100%;
-      background: #10151c;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #fcfcfb;
       color: var(--text);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 0.55rem 0.7rem;
+
+      padding: 10px 11px;
+
       font: inherit;
+      font-size: 13px;
+
+      outline: none;
+
+      transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
     }
-    textarea { min-height: 140px; resize: vertical; }
-    .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--purple);
+
+      box-shadow:
+        0 0 0 3px var(--purple-light);
+    }
+
+    textarea {
+      min-height: 145px;
+      resize: vertical;
+
+      line-height: 1.5;
+    }
+
+    .file-input {
+      padding: 8px;
+      background: #faf9f8;
+    }
+
+    /* ---------------- BUTTONS ---------------- */
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      margin-top: 4px;
+    }
+
     button {
-      background: var(--gold);
-      color: #1a1208;
-      border: 0;
-      border-radius: 8px;
-      padding: 0.6rem 0.9rem;
+      border: none;
+      border-radius: 9px;
+
+      padding: 10px 15px;
+
+      font: inherit;
+      font-size: 12px;
       font-weight: 650;
+
       cursor: pointer;
-      margin-top: 0.7rem;
-      margin-right: 0.4rem;
+
+      transition:
+        background 0.15s ease,
+        transform 0.1s ease;
     }
-    button.secondary { background: #2a3340; color: var(--text); }
-    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-    th, td { text-align: left; padding: 0.4rem 0.2rem; border-bottom: 1px solid var(--line); }
-    .msg { white-space: pre-wrap; line-height: 1.45; }
-    .cite { font-size: 0.8rem; color: var(--muted); margin-top: 0.75rem; }
-    .disclaimer { color: var(--muted); font-size: 0.8rem; margin-top: 1rem; }
-    .ok { color: var(--ok); }
-    .bad { color: var(--bad); }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary {
+      background: var(--purple);
+      color: #fff;
+    }
+
+    .primary:hover {
+      background: var(--purple-dark);
+    }
+
+    .secondary {
+      background: #f0eef1;
+      color: #4d4850;
+    }
+
+    .secondary:hover {
+      background: #e7e4e9;
+    }
+
+    /* ---------------- RESULT ---------------- */
+
+    .result {
+      min-height: 130px;
+
+      padding: 16px;
+
+      border-radius: 11px;
+      background: #f8f7f5;
+
+      color: #3b383e;
+
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .result-status {
+      margin-bottom: 7px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .result strong {
+      font-weight: 700;
+    }
+
+    .result-list {
+      margin: 9px 0 0;
+      padding-left: 18px;
+    }
+
+    .result-list li {
+      margin-bottom: 5px;
+    }
+
+    .loading {
+      color: var(--muted);
+    }
+
+    .error {
+      padding: 11px 12px;
+
+      border-radius: 8px;
+
+      background: var(--red-light);
+      color: var(--red);
+
+      font-size: 12px;
+    }
+
+    .warning {
+      margin-top: 12px;
+      padding: 10px 11px;
+
+      border-radius: 8px;
+
+      background: #faf2e8;
+      color: #9a6837;
+
+      font-size: 11px;
+    }
+
+    .sources {
+      margin-top: 11px;
+
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    /* ---------------- OBLIGATIONS ---------------- */
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      padding: 4px 8px;
+
+      border-radius: 20px;
+
+      background: var(--purple-light);
+      color: var(--purple);
+
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .empty {
+      padding: 22px 8px;
+
+      color: var(--muted);
+      text-align: center;
+
+      font-size: 12px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      font-size: 12px;
+    }
+
+    th {
+      padding: 9px 7px;
+
+      border-bottom: 1px solid var(--border);
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 650;
+      text-align: left;
+    }
+
+    td {
+      padding: 12px 7px;
+
+      border-bottom: 1px solid #efedef;
+
+      white-space: nowrap;
+    }
+
+    .provider {
+      display: inline-block;
+
+      padding: 4px 7px;
+
+      border-radius: 6px;
+
+      background: var(--purple-light);
+      color: var(--purple);
+
+      font-size: 10px;
+      font-weight: 650;
+
+      text-transform: capitalize;
+    }
+
+    /* ---------------- SECONDARY ACTIONS ---------------- */
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .tool {
+      padding: 14px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: #fcfcfb;
+
+      cursor: pointer;
+      text-align: left;
+
+      transition:
+        border-color 0.15s ease,
+        background 0.15s ease;
+    }
+
+    .tool:hover {
+      border-color: #d5cbdc;
+      background: var(--purple-light);
+    }
+
+    .tool-title {
+      display: block;
+
+      margin-bottom: 4px;
+
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .tool-description {
+      color: var(--muted);
+
+      font-size: 10px;
+      line-height: 1.4;
+    }
+
+    /* ---------------- FOOTER NOTE ---------------- */
+
+    .note {
+      margin-top: 16px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    /* ---------------- RESPONSIVE ---------------- */
+
+    @media (max-width: 850px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .summary {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 550px) {
+      main {
+        padding: 30px 18px 50px;
+      }
+
+      .header-inner {
+        padding: 17px 18px;
+      }
+
+      .intro h1 {
+        font-size: 26px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
+
 <body>
-  <header>
-    <div>
-      <h1>After<span>Math</span></h1>
-      <div class="tag">After the tap, before the due. Track stacked BNPL — simulate, don’t borrow.</div>
-    </div>
-  </header>
-  <main>
-    <section>
-      <div class="row">
-        <div>
-          <label>User id</label>
-          <input id="user" value="demo" />
-        </div>
-        <div>
-          <label>Thread id</label>
-          <input id="thread" />
-        </div>
-        <div>
-          <label>Cash this payday</label>
-          <input id="cash" type="number" value="250" />
-        </div>
-      </div>
-      <label>Paste a statement, or ask a question / request a plan</label>
-      <textarea id="message" placeholder="Paste Klarna / Afterpay / Affirm text, or ask: what hits in 7 days?"></textarea>
-      <label>Upload .txt or .pdf</label>
-      <input id="file" type="file" accept=".txt,.md,.pdf" />
+
+<header>
+  <div class="header-inner">
+
+    <div class="brand">
+      <div class="brand-icon">A</div>
+
       <div>
-        <button type="button" onclick="run('ingest')">Extract plans</button>
-        <button type="button" class="secondary" onclick="run('ask')">Ask</button>
-        <button type="button" class="secondary" onclick="run('plan')">Simulate payoff</button>
-        <button type="button" class="secondary" onclick="upload()">Upload file</button>
+        <div class="brand-name">AfterMath</div>
+        <div class="brand-subtitle">
+          BNPL payment tracker
+        </div>
       </div>
-      <p class="disclaimer">Simulation only. AfterMath does not approve credit or recommend new BNPL.</p>
-    </section>
-    <section>
-      <h3 style="margin-top:0">Answer</h3>
-      <div id="answer" class="msg">Ready.</div>
-      <div id="cites" class="cite"></div>
-      <h3>Stored obligations</h3>
-      <div id="table">None yet.</div>
-    </section>
-  </main>
-  <script>
-    document.getElementById("thread").value = crypto.randomUUID();
+    </div>
 
-    async function refresh() {
-      const user = document.getElementById("user").value || "demo";
-      const res = await fetch("/obligations/" + encodeURIComponent(user));
-      const data = await res.json();
-      renderTable(data.obligations || []);
+  </div>
+</header>
+
+
+<main>
+
+  <div class="intro">
+    <h1>Stay ahead of your payments.</h1>
+
+    <p>
+      Keep track of your BNPL plans, understand what is coming up,
+      and simulate how your existing payments fit into your available cash.
+    </p>
+  </div>
+
+
+  <!-- SUMMARY -->
+
+  <div class="summary">
+
+    <div class="summary-card">
+      <div class="summary-label">
+        Total remaining
+      </div>
+
+      <div class="summary-value" id="totalRemaining">
+        $0.00
+      </div>
+
+      <div class="summary-detail">
+        Across your stored plans
+      </div>
+    </div>
+
+
+    <div class="summary-card">
+      <div class="summary-label">
+        Active plans
+      </div>
+
+      <div class="summary-value" id="planCount">
+        0
+      </div>
+
+      <div class="summary-detail">
+        Currently being tracked
+      </div>
+    </div>
+
+
+    <div class="summary-card">
+      <div class="summary-label">
+        Next payment
+      </div>
+
+      <div class="summary-value" id="nextPayment">
+        —
+      </div>
+
+      <div class="summary-detail" id="nextPaymentDetail">
+        No payments stored yet
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="grid">
+
+    <!-- LEFT COLUMN -->
+
+    <div>
+
+      <section class="card">
+
+        <h2 class="card-title">
+          Add a payment plan
+        </h2>
+
+        <p class="card-description">
+          Paste a statement or payment information and AfterMath
+          will identify the BNPL obligations it contains.
+        </p>
+
+
+        <div class="form-row">
+
+          <div class="field">
+            <label for="user">
+              User
+            </label>
+
+            <input
+              id="user"
+              value="demo"
+              autocomplete="off"
+            >
+          </div>
+
+
+          <div class="field">
+            <label for="cash">
+              Cash available
+            </label>
+
+            <input
+              id="cash"
+              type="number"
+              value="250"
+              min="0"
+            >
+          </div>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="message">
+            Statement or question
+          </label>
+
+          <textarea
+            id="message"
+            placeholder="Paste your statement here..."
+          ></textarea>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="file">
+            Upload statement
+          </label>
+
+          <input
+            id="file"
+            class="file-input"
+            type="file"
+            accept=".txt,.md,.pdf"
+          >
+
+        </div>
+
+
+        <div class="buttons">
+
+          <button
+            class="primary"
+            type="button"
+            onclick="run('ingest')"
+          >
+            Extract plans
+          </button>
+
+          <button
+            class="secondary"
+            type="button"
+            onclick="upload()"
+          >
+            Upload file
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <section class="card">
+
+        <h2 class="card-title">
+          Explore your plans
+        </h2>
+
+        <p class="card-description">
+          Once your plans are stored, use AfterMath to understand
+          upcoming payments or run a payoff simulation.
+        </p>
+
+
+        <div class="tool-grid">
+
+          <button
+            class="tool"
+            type="button"
+            onclick="run('ask')"
+          >
+            <span class="tool-title">
+              Ask AfterMath
+            </span>
+
+            <span class="tool-description">
+              Ask questions about your existing plans or BNPL.
+            </span>
+          </button>
+
+
+          <button
+            class="tool"
+            type="button"
+            onclick="run('plan')"
+          >
+            <span class="tool-title">
+              Simulate payoff
+            </span>
+
+            <span class="tool-description">
+              See how your available cash could cover existing payments.
+            </span>
+          </button>
+
+        </div>
+
+
+        <div class="note">
+          AfterMath is a tracking and simulation tool. It does not
+          approve credit or recommend taking on new BNPL.
+        </div>
+
+      </section>
+
+    </div>
+
+
+    <!-- RIGHT COLUMN -->
+
+    <div>
+
+      <section class="card">
+
+        <h2 class="card-title">
+          Result
+        </h2>
+
+        <p class="card-description">
+          Your latest extraction, answer, or simulation will appear here.
+        </p>
+
+
+        <div id="answer" class="result">
+
+          <div class="result-status">
+            Ready
+          </div>
+
+          Add a statement or ask a question to get started.
+
+        </div>
+
+
+        <div id="cites" class="sources"></div>
+
+      </section>
+
+
+      <section class="card">
+
+        <div class="section-heading">
+
+          <h2 class="card-title">
+            Payment plans
+          </h2>
+
+          <span
+            class="badge"
+            id="countBadge"
+          >
+            0 plans
+          </span>
+
+        </div>
+
+
+        <div
+          id="table"
+          class="table-wrap"
+        >
+          <div class="empty">
+            No payment plans have been added yet.
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<script>
+
+  /*
+   * A hidden thread ID is required by the backend.
+   * It is intentionally not shown to the user.
+   */
+
+  const threadId =
+    typeof crypto !== "undefined" && crypto.randomUUID
+      ? crypto.randomUUID()
+      : String(Date.now());
+
+
+
+  /*
+   * -----------------------------
+   * HTML SAFETY
+   * -----------------------------
+   */
+
+  function escapeHtml(value) {
+
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+
+  }
+
+
+
+  /*
+   * -----------------------------
+   * BASIC TEXT FORMATTING
+   * -----------------------------
+   */
+
+  function formatText(value) {
+
+    return escapeHtml(value)
+      .replace(/\n/g, "<br>");
+
+  }
+
+
+
+  /*
+   * -----------------------------
+   * SUMMARY
+   * -----------------------------
+   */
+
+  function updateSummary(rows) {
+
+    const total = rows.reduce(
+      (sum, row) =>
+        sum + Number(row.remaining_balance || 0),
+      0
+    );
+
+    document.getElementById("totalRemaining").textContent =
+      "$" + total.toFixed(2);
+
+    document.getElementById("planCount").textContent =
+      rows.length;
+
+    document.getElementById("countBadge").textContent =
+      `${rows.length} ${rows.length === 1 ? "plan" : "plans"}`;
+
+
+    const datedRows = rows
+      .filter(row => row.next_due_date)
+      .sort(
+        (a, b) =>
+          new Date(a.next_due_date) -
+          new Date(b.next_due_date)
+      );
+
+
+    if (!datedRows.length) {
+
+      document.getElementById("nextPayment").textContent =
+        "—";
+
+      document.getElementById("nextPaymentDetail").textContent =
+        rows.length
+          ? "No due date available"
+          : "No payments stored yet";
+
+      return;
+
     }
 
-    function renderTable(rows) {
-      if (!rows.length) {
-        document.getElementById("table").textContent = "None yet.";
+
+    const next = datedRows[0];
+
+    document.getElementById("nextPayment").textContent =
+      next.next_due_date;
+
+    document.getElementById("nextPaymentDetail").textContent =
+      `${next.merchant || "Payment"} · $${Number(
+        next.installment_amount || 0
+      ).toFixed(2)}`;
+
+  }
+
+
+
+  /*
+   * -----------------------------
+   * PAYMENT TABLE
+   * -----------------------------
+   */
+
+  function renderTable(rows) {
+
+    updateSummary(rows);
+
+
+    const table = document.getElementById("table");
+
+
+    if (!rows.length) {
+
+      table.innerHTML = `
+        <div class="empty">
+          No payment plans have been added yet.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    const html = `
+      <table>
+
+        <thead>
+          <tr>
+            <th>Merchant</th>
+            <th>Provider</th>
+            <th>Next due</th>
+            <th>Payment</th>
+            <th>Remaining</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          ${rows.map(row => `
+
+            <tr>
+
+              <td>
+                <strong>
+                  ${escapeHtml(row.merchant || "Unknown")}
+                </strong>
+              </td>
+
+              <td>
+                <span class="provider">
+                  ${escapeHtml(row.provider || "other")}
+                </span>
+              </td>
+
+              <td>
+                ${escapeHtml(row.next_due_date || "—")}
+              </td>
+
+              <td>
+                $${Number(
+                  row.installment_amount || 0
+                ).toFixed(2)}
+              </td>
+
+              <td>
+                <strong>
+                  $${Number(
+                    row.remaining_balance || 0
+                  ).toFixed(2)}
+                </strong>
+              </td>
+
+            </tr>
+
+          `).join("")}
+
+        </tbody>
+
+      </table>
+    `;
+
+
+    table.innerHTML = html;
+
+  }
+
+
+
+  /*
+   * -----------------------------
+   * LOAD STORED PLANS
+   * -----------------------------
+   */
+
+  async function refresh() {
+
+    const user =
+      document.getElementById("user").value || "demo";
+
+
+    try {
+
+      const response = await fetch(
+        "/obligations/" +
+        encodeURIComponent(user)
+      );
+
+
+      const data = await response.json();
+
+
+      if (!response.ok) {
         return;
       }
-      const html = ["<table><tr><th>Merchant</th><th>Provider</th><th>Due</th><th>Installment</th><th>Remaining</th></tr>"];
-      for (const r of rows) {
-        html.push(`<tr><td>${r.merchant}</td><td>${r.provider}</td><td>${r.next_due_date}</td><td>${r.installment_amount}</td><td>${r.remaining_balance}</td></tr>`);
-      }
-      html.push("</table>");
-      document.getElementById("table").innerHTML = html.join("");
-    }
 
-    async function run(intent) {
-      const body = {
-        user_id: document.getElementById("user").value || "demo",
-        thread_id: document.getElementById("thread").value,
-        message: document.getElementById("message").value,
-        available_cash: Number(document.getElementById("cash").value || 0),
-        intent
-      };
-      document.getElementById("answer").textContent = "Running " + intent + "…";
-      const res = await fetch("/run", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        document.getElementById("answer").textContent = data.detail || JSON.stringify(data);
-        return;
-      }
-      document.getElementById("answer").textContent = data.answer || JSON.stringify(data.plan || data, null, 2);
-      const cites = (data.citations || []).map(c => `${c.source} (score ${c.score})`).join(" · ");
-      document.getElementById("cites").textContent = cites ? "Sources: " + cites : "";
+
       renderTable(data.obligations || []);
+
+    } catch (error) {
+
+      console.error(
+        "Could not load obligations:",
+        error
+      );
+
     }
 
-    async function upload() {
-      const file = document.getElementById("file").files[0];
-      if (!file) {
-        document.getElementById("answer").textContent = "Choose a file first.";
+  }
+
+
+
+  /*
+   * -----------------------------
+   * SHOW EXTRACTION
+   * -----------------------------
+   */
+
+  function showExtraction(data) {
+
+    const obligations =
+      data.obligations || [];
+
+
+    let html = `
+      <div class="result-status">
+        Extraction complete
+      </div>
+
+      <strong>
+        ${obligations.length}
+        ${obligations.length === 1 ? "payment plan" : "payment plans"}
+        found.
+      </strong>
+    `;
+
+
+    if (obligations.length) {
+
+      html += `
+        <ul class="result-list">
+          ${obligations.map(row => `
+
+            <li>
+              ${escapeHtml(row.merchant || "Unknown merchant")}
+              —
+              ${escapeHtml(row.provider || "other")}
+              —
+              $${Number(
+                row.remaining_balance || 0
+              ).toFixed(2)}
+              remaining
+            </li>
+
+          `).join("")}
+        </ul>
+      `;
+
+    }
+
+
+    if (data.warnings && data.warnings.length) {
+
+      html += `
+        <div class="warning">
+          ${data.warnings
+            .map(escapeHtml)
+            .join("<br>")}
+        </div>
+      `;
+
+    }
+
+
+    document.getElementById("answer").innerHTML =
+      html;
+
+  }
+
+
+
+  /*
+   * -----------------------------
+   * RUN MAIN WORKFLOW
+   * -----------------------------
+   */
+
+  async function run(intent) {
+
+    const answer =
+      document.getElementById("answer");
+
+
+    const body = {
+
+      user_id:
+        document.getElementById("user").value || "demo",
+
+      thread_id:
+        threadId,
+
+      message:
+        document.getElementById("message").value,
+
+      available_cash:
+        Number(
+          document.getElementById("cash").value || 0
+        ),
+
+      intent
+
+    };
+
+
+    answer.classList.add("loading");
+
+    answer.innerHTML = `
+      <div class="result-status">
+        Working
+      </div>
+
+      Processing your request…
+    `;
+
+
+    document.getElementById("cites").textContent =
+      "";
+
+
+    try {
+
+      const response = await fetch(
+        "/run",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify(body)
+        }
+      );
+
+
+      const data = await response.json();
+
+
+      if (!response.ok) {
+
+        answer.innerHTML = `
+          <div class="error">
+            ${escapeHtml(
+              data.detail ||
+              "Something went wrong."
+            )}
+          </div>
+        `;
+
         return;
+
       }
-      const user = document.getElementById("user").value || "demo";
-      const fd = new FormData();
-      fd.append("file", file);
-      document.getElementById("answer").textContent = "Extracting…";
-      const res = await fetch("/ingest/file?user_id=" + encodeURIComponent(user), { method: "POST", body: fd });
-      const data = await res.json();
-      document.getElementById("answer").textContent = data.answer || JSON.stringify(data);
-      renderTable(data.obligations || []);
+
+
+      /*
+       * Extraction
+       */
+
+      if (
+        intent === "ingest" &&
+        data.obligations
+      ) {
+
+        showExtraction(data);
+
+      }
+
+
+      /*
+       * Normal answer
+       */
+
+      else if (data.answer) {
+
+        answer.innerHTML = `
+          <div class="result-status">
+            Answer
+          </div>
+
+          ${formatText(data.answer)}
+        `;
+
+      }
+
+
+      /*
+       * Payoff plan
+       */
+
+      else if (data.plan) {
+
+        answer.innerHTML = `
+          <div class="result-status">
+            Simulation
+          </div>
+
+          <pre style="
+            margin: 0;
+            white-space: pre-wrap;
+            font-family: inherit;
+            font-size: 12px;
+            line-height: 1.6;
+          ">${escapeHtml(
+            JSON.stringify(
+              data.plan,
+              null,
+              2
+            )
+          )}</pre>
+        `;
+
+      }
+
+
+      /*
+       * Unexpected response
+       */
+
+      else {
+
+        answer.innerHTML = `
+          <div class="result-status">
+            Result
+          </div>
+
+          <pre style="
+            margin: 0;
+            white-space: pre-wrap;
+            font-family: inherit;
+            font-size: 12px;
+          ">${escapeHtml(
+            JSON.stringify(
+              data,
+              null,
+              2
+            )
+          )}</pre>
+        `;
+
+      }
+
+
+      /*
+       * Citations
+       */
+
+      if (data.citations?.length) {
+
+        document.getElementById("cites").textContent =
+          "Sources: " +
+          data.citations
+            .map(
+              citation =>
+                `${citation.source} (${citation.score})`
+            )
+            .join(" · ");
+
+      }
+
+
+      /*
+       * Refresh stored obligations
+       */
+
+      await refresh();
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      answer.innerHTML = `
+        <div class="error">
+          Could not connect to AfterMath.
+          Make sure the server is running.
+        </div>
+      `;
+
+    } finally {
+
+      answer.classList.remove("loading");
+
     }
 
-    refresh();
-  </script>
+  }
+
+
+
+  /*
+   * -----------------------------
+   * FILE UPLOAD
+   * -----------------------------
+   */
+
+  async function upload() {
+
+    const file =
+      document.getElementById("file").files[0];
+
+
+    const answer =
+      document.getElementById("answer");
+
+
+    if (!file) {
+
+      answer.innerHTML = `
+        <div class="error">
+          Choose a statement file first.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    const user =
+      document.getElementById("user").value || "demo";
+
+
+    const formData =
+      new FormData();
+
+
+    formData.append(
+      "file",
+      file
+    );
+
+
+    answer.innerHTML = `
+      <div class="result-status">
+        Working
+      </div>
+
+      Extracting your statement…
+    `;
+
+
+    try {
+
+      const response = await fetch(
+        "/ingest/file?user_id=" +
+        encodeURIComponent(user),
+        {
+          method: "POST",
+          body: formData
+        }
+      );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        answer.innerHTML = `
+          <div class="error">
+            ${escapeHtml(
+              data.detail ||
+              "Could not process the file."
+            )}
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      if (data.obligations) {
+
+        showExtraction(data);
+
+      } else if (data.answer) {
+
+        answer.innerHTML = `
+          <div class="result-status">
+            Result
+          </div>
+
+          ${formatText(data.answer)}
+        `;
+
+      }
+
+
+      await refresh();
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      answer.innerHTML = `
+        <div class="error">
+          Could not connect to AfterMath.
+        </div>
+      `;
+
+    }
+
+  }
+
+
+
+  /*
+   * Initial load
+   */
+
+  refresh();
+
+</script>
+
 </body>
 </html>

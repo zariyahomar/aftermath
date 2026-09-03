@@ -6,16 +6,27 @@ from aftermath.schemas import ExtractedObligations, PayoffPlan, PlanEvaluation, 
 import json
 
 
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.messages import SystemMessage
+
 def build_extract_chain():
+
     example_block = json.dumps(EXTRACT_EXAMPLES, indent=2)
+
     prompt = ChatPromptTemplate.from_messages(
         [
-            ("system", SYSTEM_EXTRACT + "\n\nFew-shot examples:\n" + example_block),
+            SystemMessage(
+                content=SYSTEM_EXTRACT
+                + "\n\nFew-shot examples:\n"
+                + example_block
+            ),
             ("human", "{document}"),
         ]
     )
-    return prompt | get_llm(temperature=0.0).with_structured_output(ExtractedObligations)
 
+    return prompt | get_llm(temperature=0.0).with_structured_output(
+        ExtractedObligations
+    )
 
 def build_router_chain():
     prompt = ChatPromptTemplate.from_messages(
