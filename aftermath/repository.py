@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import sqlite3
 import uuid
-from datetime import date
-from pathlib import Path
 
 from aftermath.config import settings
 from aftermath.schemas import Obligation
@@ -11,8 +9,10 @@ from aftermath.schemas import Obligation
 
 def _connect() -> sqlite3.Connection:
     settings.sqlite_path.parent.mkdir(parents=True, exist_ok=True)
+
     conn = sqlite3.connect(settings.sqlite_path)
     conn.row_factory = sqlite3.Row
+
     return conn
 
 
@@ -34,6 +34,7 @@ def init_db() -> None:
                 currency TEXT NOT NULL DEFAULT 'USD',
                 notes TEXT
             );
+
             CREATE TABLE IF NOT EXISTS profiles (
                 user_id TEXT PRIMARY KEY,
                 payday_day INTEGER,
@@ -52,43 +53,93 @@ def upsert_profile(
     currency: str | None = None,
 ) -> dict:
     current = get_profile(user_id)
-    payday = payday_day if payday_day is not None else current.get("payday_day")
-    cash = available_cash if available_cash is not None else current.get("available_cash")
+
+    payday = (
+        payday_day
+        if payday_day is not None
+        else current.get("payday_day")
+    )
+
+    cash = (
+        available_cash
+        if available_cash is not None
+        else current.get("available_cash")
+    )
+
     cur = currency or current.get("currency") or "USD"
+
     with _connect() as conn:
         conn.execute(
             """
-            INSERT INTO profiles (user_id, payday_day, available_cash, currency)
+            INSERT INTO profiles (
+                user_id,
+                payday_day,
+                available_cash,
+                currency
+            )
             VALUES (?, ?, ?, ?)
+
             ON CONFLICT(user_id) DO UPDATE SET
-                payday_day=excluded.payday_day,
-                available_cash=excluded.available_cash,
-                currency=excluded.currency
+                payday_day = excluded.payday_day,
+                available_cash = excluded.available_cash,
+                currency = excluded.currency
             """,
-            (user_id, payday, cash, cur),
+            (
+                user_id,
+                payday,
+                cash,
+                cur,
+            ),
         )
+
     return get_profile(user_id)
 
 
 def get_profile(user_id: str) -> dict:
     with _connect() as conn:
-        row = conn.execute("SELECT * FROM profiles WHERE user_id=?", (user_id,)).fetchone()
+        row = conn.execute(
+            "SELECT * FROM profiles WHERE user_id=?",
+            (user_id,),
+        ).fetchone()
+
     if not row:
-        return {"user_id": user_id, "payday_day": None, "available_cash": None, "currency": "USD"}
+        return {
+            "user_id": user_id,
+            "payday_day": None,
+            "available_cash": None,
+            "currency": "USD",
+        }
+
     return dict(row)
 
 
-def save_obligations(user_id: str, items: list[Obligation]) -> list[dict]:
+def save_obligations(
+    user_id: str,
+    items: list[Obligation],
+) -> list[dict]:
     saved: list[dict] = []
+
     with _connect() as conn:
         for item in items:
             oid = item.id or str(uuid.uuid4())
+
             conn.execute(
                 """
                 INSERT INTO obligations (
-                    id, user_id, merchant, provider, original_total, installment_amount,
-                    remaining_balance, remaining_installments, next_due_date, late_fee, currency, notes
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    id,
+                    user_id,
+                    merchant,
+                    provider,
+                    original_total,
+                    installment_amount,
+                    remaining_balance,
+                    remaining_installments,
+                    next_due_date,
+                    late_fee,
+                    currency,
+                    notes
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     oid,
@@ -105,19 +156,44 @@ def save_obligations(user_id: str, items: list[Obligation]) -> list[dict]:
                     item.notes,
                 ),
             )
-            saved.append({**item.model_dump(), "id": oid, "next_due_date": item.next_due_date.isoformat()})
+
+            saved.append(
+                {
+                    **item.model_dump(),
+                    "id": oid,
+                    "next_due_date": item.next_due_date.isoformat(),
+                }
+            )
+
     return saved
 
 
 def list_obligations(user_id: str) -> list[dict]:
     with _connect() as conn:
         rows = conn.execute(
-            "SELECT * FROM obligations WHERE user_id=? ORDER BY next_due_date",
+            """
+            SELECT *
+            FROM obligations
+            WHERE user_id=?
+            ORDER BY next_due_date
+            """,
             (user_id,),
         ).fetchall()
-    return [dict(r) for r in rows]
+
+    return [dict(row) for row in rows]
 
 
 def clear_obligations(user_id: str) -> None:
     with _connect() as conn:
-        conn.execute("DELETE FROM obligations WHERE user_id=?", (user_id,))
+        conn.execute(
+            "DELETE FROM obligations WHERE user_id=?",
+            (user_id,),
+        )
+
+
+def clear_profile(user_id: str) -> None:
+    with _connect() as conn:
+        conn.execute(
+            "DELETE FROM profiles WHERE user_id=?",
+            (user_id,),
+        )

@@ -1,32 +1,31 @@
+from __future__ import annotations
+
+import json
+
+from langchain_core.messages import SystemMessage
 from langchain_core.prompts import ChatPromptTemplate
 
 from aftermath.llm import get_llm
-from aftermath.prompts import EXTRACT_EXAMPLES, SYSTEM_EVALUATOR, SYSTEM_EXTRACT, SYSTEM_PLANNER, SYSTEM_ROUTER
+from aftermath.prompts import (
+    EXTRACT_EXAMPLES,
+    SYSTEM_EVALUATOR,
+    SYSTEM_EXTRACT,
+    SYSTEM_PLANNER,
+    SYSTEM_ROUTER,
+)
 from aftermath.schemas import ExtractedObligations, PayoffPlan, PlanEvaluation, RouterOutput
-import json
 
-
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.messages import SystemMessage
 
 def build_extract_chain():
-
     example_block = json.dumps(EXTRACT_EXAMPLES, indent=2)
-
     prompt = ChatPromptTemplate.from_messages(
         [
-            SystemMessage(
-                content=SYSTEM_EXTRACT
-                + "\n\nFew-shot examples:\n"
-                + example_block
-            ),
+            SystemMessage(content=SYSTEM_EXTRACT + "\n\nFew-shot examples:\n" + example_block),
             ("human", "{document}"),
         ]
     )
+    return prompt | get_llm(temperature=0.0).with_structured_output(ExtractedObligations)
 
-    return prompt | get_llm(temperature=0.0).with_structured_output(
-        ExtractedObligations
-    )
 
 def build_router_chain():
     prompt = ChatPromptTemplate.from_messages(

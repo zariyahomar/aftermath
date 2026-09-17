@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pypdf import PdfReader
+import fitz
 
 from aftermath.config import settings
 
@@ -10,11 +10,16 @@ def load_text_file(path: Path) -> str:
 
 
 def load_pdf(path: Path) -> str:
-    reader = PdfReader(str(path))
+    document = fitz.open(str(path))
+
     pages = []
-    for i, page in enumerate(reader.pages, start=1):
-        text = page.extract_text() or ""
+
+    for i, page in enumerate(document, start=1):
+        text = page.get_text("text") or ""
         pages.append(f"[page {i}]\n{text}")
+
+    document.close()
+
     return "\n\n".join(pages)
 
 

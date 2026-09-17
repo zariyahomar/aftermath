@@ -1,21 +1,21 @@
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_google_genai import (
+    ChatGoogleGenerativeAI,
+    GoogleGenerativeAIEmbeddings,
+)
 
 from aftermath.config import settings
 
 
-def get_llm(*, temperature: float = 0.2) -> ChatOpenAI:
-    kwargs: dict = {
-        "model": settings.openai_model,
-        "api_key": settings.openai_api_key or "missing",
-        "temperature": temperature,
-    }
-    if settings.openai_base_url:
-        kwargs["base_url"] = settings.openai_base_url
-    return ChatOpenAI(**kwargs)
+def get_llm(*, temperature: float = 0.2) -> ChatGoogleGenerativeAI:
+    return ChatGoogleGenerativeAI(
+        model=settings.gemini_model,
+        google_api_key=settings.gemini_api_key,
+        temperature=temperature,
+    )
 
 
-def get_embeddings() -> OpenAIEmbeddings:
-    kwargs: dict = {"api_key": settings.openai_api_key or "missing"}
-    if settings.openai_base_url:
-        kwargs["base_url"] = settings.openai_base_url
-    return OpenAIEmbeddings(**kwargs)
+def get_embeddings() -> GoogleGenerativeAIEmbeddings:
+    return GoogleGenerativeAIEmbeddings(
+        model="gemini-embedding-001",
+        google_api_key=settings.gemini_api_key,
+    )

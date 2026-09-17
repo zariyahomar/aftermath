@@ -1,9 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>AfterMath</title>
 
   <style>
@@ -13,17 +13,13 @@
       --text: #252329;
       --muted: #77737d;
       --border: #e7e4e8;
-
       --purple: #73558f;
       --purple-dark: #604477;
       --purple-light: #f1edf5;
-
       --green: #39745a;
       --green-light: #eaf4ee;
-
       --red: #a65353;
       --red-light: #f8ecec;
-
       --shadow: 0 2px 12px rgba(35, 30, 40, 0.05);
     }
 
@@ -42,8 +38,6 @@
         sans-serif;
     }
 
-    /* ---------------- HEADER ---------------- */
-
     header {
       background: #fff;
       border-bottom: 1px solid var(--border);
@@ -53,7 +47,6 @@
       max-width: 1160px;
       margin: 0 auto;
       padding: 20px 32px;
-
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -68,16 +61,12 @@
     .brand-icon {
       width: 38px;
       height: 38px;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
       border-radius: 11px;
-
       background: var(--purple);
       color: #fff;
-
       font-size: 17px;
       font-weight: 700;
     }
@@ -95,7 +84,11 @@
       font-size: 12px;
     }
 
-    /* ---------------- PAGE ---------------- */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
     main {
       max-width: 1160px;
@@ -109,7 +102,6 @@
 
     .intro h1 {
       margin: 0 0 8px;
-
       font-size: 31px;
       line-height: 1.15;
       letter-spacing: -0.04em;
@@ -119,19 +111,15 @@
     .intro p {
       max-width: 650px;
       margin: 0;
-
       color: var(--muted);
       font-size: 15px;
       line-height: 1.6;
     }
 
-    /* ---------------- SUMMARY ---------------- */
-
     .summary {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
-
       margin-bottom: 18px;
     }
 
@@ -139,15 +127,12 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 15px;
-
       padding: 18px 20px;
-
       box-shadow: var(--shadow);
     }
 
     .summary-label {
       margin-bottom: 7px;
-
       color: var(--muted);
       font-size: 12px;
       font-weight: 600;
@@ -161,12 +146,9 @@
 
     .summary-detail {
       margin-top: 4px;
-
       color: var(--muted);
       font-size: 11px;
     }
-
-    /* ---------------- MAIN GRID ---------------- */
 
     .grid {
       display: grid;
@@ -179,9 +161,7 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 16px;
-
       padding: 22px;
-
       box-shadow: var(--shadow);
     }
 
@@ -191,7 +171,6 @@
 
     .card-title {
       margin: 0;
-
       font-size: 17px;
       font-weight: 700;
       letter-spacing: -0.015em;
@@ -199,13 +178,10 @@
 
     .card-description {
       margin: 6px 0 20px;
-
       color: var(--muted);
       font-size: 13px;
       line-height: 1.5;
     }
-
-    /* ---------------- FORM ---------------- */
 
     .form-row {
       display: grid;
@@ -219,9 +195,7 @@
 
     label {
       display: block;
-
       margin-bottom: 6px;
-
       color: #5f5b63;
       font-size: 12px;
       font-weight: 600;
@@ -230,20 +204,14 @@
     input,
     textarea {
       width: 100%;
-
       border: 1px solid var(--border);
       border-radius: 9px;
-
       background: #fcfcfb;
       color: var(--text);
-
       padding: 10px 11px;
-
       font: inherit;
       font-size: 13px;
-
       outline: none;
-
       transition:
         border-color 0.15s ease,
         box-shadow 0.15s ease;
@@ -252,15 +220,12 @@
     input:focus,
     textarea:focus {
       border-color: var(--purple);
-
-      box-shadow:
-        0 0 0 3px var(--purple-light);
+      box-shadow: 0 0 0 3px var(--purple-light);
     }
 
     textarea {
       min-height: 145px;
       resize: vertical;
-
       line-height: 1.5;
     }
 
@@ -269,28 +234,21 @@
       background: #faf9f8;
     }
 
-    /* ---------------- BUTTONS ---------------- */
-
     .buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-
       margin-top: 4px;
     }
 
     button {
       border: none;
       border-radius: 9px;
-
       padding: 10px 15px;
-
       font: inherit;
       font-size: 12px;
       font-weight: 650;
-
       cursor: pointer;
-
       transition:
         background 0.15s ease,
         transform 0.1s ease;
@@ -318,27 +276,33 @@
       background: #e7e4e9;
     }
 
-    /* ---------------- RESULT ---------------- */
+    .danger {
+      background: var(--red-light);
+      color: var(--red);
+    }
+
+    .danger:hover {
+      background: #f3dfdf;
+    }
+
+    .header-clear {
+      padding: 8px 11px;
+      font-size: 11px;
+    }
 
     .result {
       min-height: 130px;
-
       padding: 16px;
-
       border-radius: 11px;
       background: #f8f7f5;
-
       color: #3b383e;
-
       font-size: 13px;
       line-height: 1.6;
     }
 
     .result-status {
       margin-bottom: 7px;
-
       color: var(--muted);
-
       font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
@@ -364,62 +328,47 @@
 
     .error {
       padding: 11px 12px;
-
       border-radius: 8px;
-
       background: var(--red-light);
       color: var(--red);
-
       font-size: 12px;
     }
 
     .warning {
       margin-top: 12px;
       padding: 10px 11px;
-
       border-radius: 8px;
-
       background: #faf2e8;
       color: #9a6837;
-
       font-size: 11px;
     }
 
     .sources {
       margin-top: 11px;
-
       color: var(--muted);
       font-size: 10px;
     }
-
-    /* ---------------- OBLIGATIONS ---------------- */
 
     .section-heading {
       display: flex;
       align-items: center;
       justify-content: space-between;
-
       margin-bottom: 14px;
     }
 
     .badge {
       padding: 4px 8px;
-
       border-radius: 20px;
-
       background: var(--purple-light);
       color: var(--purple);
-
       font-size: 10px;
       font-weight: 700;
     }
 
     .empty {
       padding: 22px 8px;
-
       color: var(--muted);
       text-align: center;
-
       font-size: 12px;
     }
 
@@ -430,17 +379,13 @@
     table {
       width: 100%;
       border-collapse: collapse;
-
       font-size: 12px;
     }
 
     th {
       padding: 9px 7px;
-
       border-bottom: 1px solid var(--border);
-
       color: var(--muted);
-
       font-size: 10px;
       font-weight: 650;
       text-align: left;
@@ -448,29 +393,20 @@
 
     td {
       padding: 12px 7px;
-
       border-bottom: 1px solid #efedef;
-
       white-space: nowrap;
     }
 
     .provider {
       display: inline-block;
-
       padding: 4px 7px;
-
       border-radius: 6px;
-
       background: var(--purple-light);
       color: var(--purple);
-
       font-size: 10px;
       font-weight: 650;
-
       text-transform: capitalize;
     }
-
-    /* ---------------- SECONDARY ACTIONS ---------------- */
 
     .tool-grid {
       display: grid;
@@ -480,15 +416,11 @@
 
     .tool {
       padding: 14px;
-
       border: 1px solid var(--border);
       border-radius: 10px;
-
       background: #fcfcfb;
-
       cursor: pointer;
       text-align: left;
-
       transition:
         border-color 0.15s ease,
         background 0.15s ease;
@@ -501,32 +433,23 @@
 
     .tool-title {
       display: block;
-
       margin-bottom: 4px;
-
       font-size: 12px;
       font-weight: 700;
     }
 
     .tool-description {
       color: var(--muted);
-
       font-size: 10px;
       line-height: 1.4;
     }
 
-    /* ---------------- FOOTER NOTE ---------------- */
-
     .note {
       margin-top: 16px;
-
       color: var(--muted);
-
       font-size: 10px;
       line-height: 1.5;
     }
-
-    /* ---------------- RESPONSIVE ---------------- */
 
     @media (max-width: 850px) {
       .grid {
@@ -558,976 +481,974 @@
       .tool-grid {
         grid-template-columns: 1fr;
       }
+
+      .header-clear {
+        font-size: 10px;
+      }
     }
   </style>
 </head>
 
 <body>
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-icon">A</div>
 
-<header>
-  <div class="header-inner">
-
-    <div class="brand">
-      <div class="brand-icon">A</div>
-
-      <div>
-        <div class="brand-name">AfterMath</div>
-        <div class="brand-subtitle">
-          BNPL payment tracker
-        </div>
-      </div>
-    </div>
-
-  </div>
-</header>
-
-
-<main>
-
-  <div class="intro">
-    <h1>Stay ahead of your payments.</h1>
-
-    <p>
-      Keep track of your BNPL plans, understand what is coming up,
-      and simulate how your existing payments fit into your available cash.
-    </p>
-  </div>
-
-
-  <!-- SUMMARY -->
-
-  <div class="summary">
-
-    <div class="summary-card">
-      <div class="summary-label">
-        Total remaining
-      </div>
-
-      <div class="summary-value" id="totalRemaining">
-        $0.00
-      </div>
-
-      <div class="summary-detail">
-        Across your stored plans
-      </div>
-    </div>
-
-
-    <div class="summary-card">
-      <div class="summary-label">
-        Active plans
-      </div>
-
-      <div class="summary-value" id="planCount">
-        0
-      </div>
-
-      <div class="summary-detail">
-        Currently being tracked
-      </div>
-    </div>
-
-
-    <div class="summary-card">
-      <div class="summary-label">
-        Next payment
-      </div>
-
-      <div class="summary-value" id="nextPayment">
-        —
-      </div>
-
-      <div class="summary-detail" id="nextPaymentDetail">
-        No payments stored yet
-      </div>
-    </div>
-
-  </div>
-
-
-  <div class="grid">
-
-    <!-- LEFT COLUMN -->
-
-    <div>
-
-      <section class="card">
-
-        <h2 class="card-title">
-          Add a payment plan
-        </h2>
-
-        <p class="card-description">
-          Paste a statement or payment information and AfterMath
-          will identify the BNPL obligations it contains.
-        </p>
-
-
-        <div class="form-row">
-
-          <div class="field">
-            <label for="user">
-              User
-            </label>
-
-            <input
-              id="user"
-              value="demo"
-              autocomplete="off"
-            >
+        <div>
+          <div class="brand-name">AfterMath</div>
+          <div class="brand-subtitle">
+            BNPL payment tracker
           </div>
-
-
-          <div class="field">
-            <label for="cash">
-              Cash available
-            </label>
-
-            <input
-              id="cash"
-              type="number"
-              value="250"
-              min="0"
-            >
-          </div>
-
         </div>
+      </div>
 
+      <div class="header-actions">
+        <button
+          class="danger header-clear"
+          type="button"
+          onclick="clearData()"
+        >
+          Clear stored data
+        </button>
+      </div>
+    </div>
+  </header>
 
-        <div class="field">
+  <main>
+    <div class="intro">
+      <h1>Stay ahead of your payments.</h1>
 
-          <label for="message">
-            Statement or question
-          </label>
-
-          <textarea
-            id="message"
-            placeholder="Paste your statement here..."
-          ></textarea>
-
-        </div>
-
-
-        <div class="field">
-
-          <label for="file">
-            Upload statement
-          </label>
-
-          <input
-            id="file"
-            class="file-input"
-            type="file"
-            accept=".txt,.md,.pdf"
-          >
-
-        </div>
-
-
-        <div class="buttons">
-
-          <button
-            class="primary"
-            type="button"
-            onclick="run('ingest')"
-          >
-            Extract plans
-          </button>
-
-          <button
-            class="secondary"
-            type="button"
-            onclick="upload()"
-          >
-            Upload file
-          </button>
-
-        </div>
-
-      </section>
-
-
-      <section class="card">
-
-        <h2 class="card-title">
-          Explore your plans
-        </h2>
-
-        <p class="card-description">
-          Once your plans are stored, use AfterMath to understand
-          upcoming payments or run a payoff simulation.
-        </p>
-
-
-        <div class="tool-grid">
-
-          <button
-            class="tool"
-            type="button"
-            onclick="run('ask')"
-          >
-            <span class="tool-title">
-              Ask AfterMath
-            </span>
-
-            <span class="tool-description">
-              Ask questions about your existing plans or BNPL.
-            </span>
-          </button>
-
-
-          <button
-            class="tool"
-            type="button"
-            onclick="run('plan')"
-          >
-            <span class="tool-title">
-              Simulate payoff
-            </span>
-
-            <span class="tool-description">
-              See how your available cash could cover existing payments.
-            </span>
-          </button>
-
-        </div>
-
-
-        <div class="note">
-          AfterMath is a tracking and simulation tool. It does not
-          approve credit or recommend taking on new BNPL.
-        </div>
-
-      </section>
-
+      <p>
+        Keep track of your BNPL plans, understand what is coming up,
+        and simulate how your existing payments fit into your available cash.
+      </p>
     </div>
 
-
-    <!-- RIGHT COLUMN -->
-
-    <div>
-
-      <section class="card">
-
-        <h2 class="card-title">
-          Result
-        </h2>
-
-        <p class="card-description">
-          Your latest extraction, answer, or simulation will appear here.
-        </p>
-
-
-        <div id="answer" class="result">
-
-          <div class="result-status">
-            Ready
-          </div>
-
-          Add a statement or ask a question to get started.
-
+    <div class="summary">
+      <div class="summary-card">
+        <div class="summary-label">
+          Total remaining
         </div>
-
-
-        <div id="cites" class="sources"></div>
-
-      </section>
-
-
-      <section class="card">
-
-        <div class="section-heading">
-
-          <h2 class="card-title">
-            Payment plans
-          </h2>
-
-          <span
-            class="badge"
-            id="countBadge"
-          >
-            0 plans
-          </span>
-
-        </div>
-
 
         <div
-          id="table"
-          class="table-wrap"
+          class="summary-value"
+          id="totalRemaining"
         >
+          $0.00
+        </div>
+
+        <div class="summary-detail">
+          Across your stored plans
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-label">
+          Active plans
+        </div>
+
+        <div
+          class="summary-value"
+          id="planCount"
+        >
+          0
+        </div>
+
+        <div class="summary-detail">
+          Currently being tracked
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-label">
+          Next payment
+        </div>
+
+        <div
+          class="summary-value"
+          id="nextPayment"
+        >
+          —
+        </div>
+
+        <div
+          class="summary-detail"
+          id="nextPaymentDetail"
+        >
+          No payments stored yet
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div>
+        <section class="card">
+          <h2 class="card-title">
+            Add a payment plan
+          </h2>
+
+          <p class="card-description">
+            Paste a statement or payment information and AfterMath
+            will identify the BNPL obligations it contains.
+          </p>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="user">
+                User
+              </label>
+
+              <input
+                id="user"
+                value="demo"
+                autocomplete="off"
+              >
+            </div>
+
+            <div class="field">
+              <label for="cash">
+                Cash available
+              </label>
+
+              <input
+                id="cash"
+                type="number"
+                value="250"
+                min="0"
+              >
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="message">
+              Statement or question
+            </label>
+
+            <textarea
+              id="message"
+              placeholder="Paste your statement here..."
+            ></textarea>
+          </div>
+
+          <div class="field">
+            <label for="file">
+              Upload statement
+            </label>
+
+            <input
+              id="file"
+              class="file-input"
+              type="file"
+              accept=".txt,.md,.pdf"
+            >
+          </div>
+
+          <div class="buttons">
+            <button
+              class="primary"
+              type="button"
+              onclick="extractPlans()"
+            >
+              Extract plans
+            </button>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2 class="card-title">
+            Explore your plans
+          </h2>
+
+          <p class="card-description">
+            Once your plans are stored, use AfterMath to understand
+            upcoming payments or run a payoff simulation.
+          </p>
+
+          <div class="tool-grid">
+            <button
+              class="tool"
+              type="button"
+              onclick="run('ask')"
+            >
+              <span class="tool-title">
+                Ask AfterMath
+              </span>
+
+              <span class="tool-description">
+                Ask questions about your existing plans or BNPL.
+              </span>
+            </button>
+
+            <button
+              class="tool"
+              type="button"
+              onclick="run('plan')"
+            >
+              <span class="tool-title">
+                Simulate payoff
+              </span>
+
+              <span class="tool-description">
+                See how your available cash could cover existing payments.
+              </span>
+            </button>
+          </div>
+
+          <div class="note">
+            AfterMath is a tracking and simulation tool. It does not
+            approve credit or recommend taking on new BNPL.
+          </div>
+        </section>
+      </div>
+
+      <div>
+        <section class="card">
+          <h2 class="card-title">
+            Result
+          </h2>
+
+          <p class="card-description">
+            Your latest extraction, answer, or simulation will appear here.
+          </p>
+
+          <div
+            id="answer"
+            class="result"
+          >
+            <div class="result-status">
+              Ready
+            </div>
+
+            Add a statement or ask a question to get started.
+          </div>
+
+          <div
+            id="cites"
+            class="sources"
+          ></div>
+        </section>
+
+        <section class="card">
+          <div class="section-heading">
+            <h2 class="card-title">
+              Payment plans
+            </h2>
+
+            <span
+              class="badge"
+              id="countBadge"
+            >
+              0 plans
+            </span>
+          </div>
+
+          <div
+            id="table"
+            class="table-wrap"
+          >
+            <div class="empty">
+              No payment plans have been added yet.
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    /*
+     * Each browser session gets its own LangGraph thread.
+     */
+    const threadId =
+      typeof crypto !== "undefined" &&
+      crypto.randomUUID
+        ? crypto.randomUUID()
+        : String(Date.now());
+
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+
+    function formatText(value) {
+      return escapeHtml(value)
+        .replace(/\n/g, "<br>");
+    }
+
+
+    function updateSummary(rows) {
+      const total = rows.reduce(
+        (sum, row) =>
+          sum + Number(
+            row.remaining_balance || 0
+          ),
+        0
+      );
+
+      document.getElementById(
+        "totalRemaining"
+      ).textContent =
+        "$" + total.toFixed(2);
+
+      document.getElementById(
+        "planCount"
+      ).textContent =
+        rows.length;
+
+      document.getElementById(
+        "countBadge"
+      ).textContent =
+        `${rows.length} ${
+          rows.length === 1
+            ? "plan"
+            : "plans"
+        }`;
+
+      const datedRows = rows
+        .filter(
+          row => row.next_due_date
+        )
+        .sort(
+          (a, b) =>
+            new Date(a.next_due_date) -
+            new Date(b.next_due_date)
+        );
+
+      if (!datedRows.length) {
+        document.getElementById(
+          "nextPayment"
+        ).textContent = "—";
+
+        document.getElementById(
+          "nextPaymentDetail"
+        ).textContent =
+          rows.length
+            ? "No due date available"
+            : "No payments stored yet";
+
+        return;
+      }
+
+      const next = datedRows[0];
+
+      document.getElementById(
+        "nextPayment"
+      ).textContent =
+        next.next_due_date;
+
+      document.getElementById(
+        "nextPaymentDetail"
+      ).textContent =
+        `${next.merchant || "Payment"} · $${Number(
+          next.installment_amount || 0
+        ).toFixed(2)}`;
+    }
+
+
+    function renderTable(rows) {
+      updateSummary(rows);
+
+      const table =
+        document.getElementById("table");
+
+      if (!rows.length) {
+        table.innerHTML = `
           <div class="empty">
             No payment plans have been added yet.
           </div>
-        </div>
-
-      </section>
-
-    </div>
-
-  </div>
-
-</main>
-
-
-<script>
-
-  /*
-   * A hidden thread ID is required by the backend.
-   * It is intentionally not shown to the user.
-   */
-
-  const threadId =
-    typeof crypto !== "undefined" && crypto.randomUUID
-      ? crypto.randomUUID()
-      : String(Date.now());
-
-
-
-  /*
-   * -----------------------------
-   * HTML SAFETY
-   * -----------------------------
-   */
-
-  function escapeHtml(value) {
-
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-
-  }
-
-
-
-  /*
-   * -----------------------------
-   * BASIC TEXT FORMATTING
-   * -----------------------------
-   */
-
-  function formatText(value) {
-
-    return escapeHtml(value)
-      .replace(/\n/g, "<br>");
-
-  }
-
-
-
-  /*
-   * -----------------------------
-   * SUMMARY
-   * -----------------------------
-   */
-
-  function updateSummary(rows) {
-
-    const total = rows.reduce(
-      (sum, row) =>
-        sum + Number(row.remaining_balance || 0),
-      0
-    );
-
-    document.getElementById("totalRemaining").textContent =
-      "$" + total.toFixed(2);
-
-    document.getElementById("planCount").textContent =
-      rows.length;
-
-    document.getElementById("countBadge").textContent =
-      `${rows.length} ${rows.length === 1 ? "plan" : "plans"}`;
-
-
-    const datedRows = rows
-      .filter(row => row.next_due_date)
-      .sort(
-        (a, b) =>
-          new Date(a.next_due_date) -
-          new Date(b.next_due_date)
-      );
-
-
-    if (!datedRows.length) {
-
-      document.getElementById("nextPayment").textContent =
-        "—";
-
-      document.getElementById("nextPaymentDetail").textContent =
-        rows.length
-          ? "No due date available"
-          : "No payments stored yet";
-
-      return;
-
-    }
-
-
-    const next = datedRows[0];
-
-    document.getElementById("nextPayment").textContent =
-      next.next_due_date;
-
-    document.getElementById("nextPaymentDetail").textContent =
-      `${next.merchant || "Payment"} · $${Number(
-        next.installment_amount || 0
-      ).toFixed(2)}`;
-
-  }
-
-
-
-  /*
-   * -----------------------------
-   * PAYMENT TABLE
-   * -----------------------------
-   */
-
-  function renderTable(rows) {
-
-    updateSummary(rows);
-
-
-    const table = document.getElementById("table");
-
-
-    if (!rows.length) {
-
-      table.innerHTML = `
-        <div class="empty">
-          No payment plans have been added yet.
-        </div>
-      `;
-
-      return;
-
-    }
-
-
-    const html = `
-      <table>
-
-        <thead>
-          <tr>
-            <th>Merchant</th>
-            <th>Provider</th>
-            <th>Next due</th>
-            <th>Payment</th>
-            <th>Remaining</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          ${rows.map(row => `
-
-            <tr>
-
-              <td>
-                <strong>
-                  ${escapeHtml(row.merchant || "Unknown")}
-                </strong>
-              </td>
-
-              <td>
-                <span class="provider">
-                  ${escapeHtml(row.provider || "other")}
-                </span>
-              </td>
-
-              <td>
-                ${escapeHtml(row.next_due_date || "—")}
-              </td>
-
-              <td>
-                $${Number(
-                  row.installment_amount || 0
-                ).toFixed(2)}
-              </td>
-
-              <td>
-                <strong>
-                  $${Number(
-                    row.remaining_balance || 0
-                  ).toFixed(2)}
-                </strong>
-              </td>
-
-            </tr>
-
-          `).join("")}
-
-        </tbody>
-
-      </table>
-    `;
-
-
-    table.innerHTML = html;
-
-  }
-
-
-
-  /*
-   * -----------------------------
-   * LOAD STORED PLANS
-   * -----------------------------
-   */
-
-  async function refresh() {
-
-    const user =
-      document.getElementById("user").value || "demo";
-
-
-    try {
-
-      const response = await fetch(
-        "/obligations/" +
-        encodeURIComponent(user)
-      );
-
-
-      const data = await response.json();
-
-
-      if (!response.ok) {
-        return;
-      }
-
-
-      renderTable(data.obligations || []);
-
-    } catch (error) {
-
-      console.error(
-        "Could not load obligations:",
-        error
-      );
-
-    }
-
-  }
-
-
-
-  /*
-   * -----------------------------
-   * SHOW EXTRACTION
-   * -----------------------------
-   */
-
-  function showExtraction(data) {
-
-    const obligations =
-      data.obligations || [];
-
-
-    let html = `
-      <div class="result-status">
-        Extraction complete
-      </div>
-
-      <strong>
-        ${obligations.length}
-        ${obligations.length === 1 ? "payment plan" : "payment plans"}
-        found.
-      </strong>
-    `;
-
-
-    if (obligations.length) {
-
-      html += `
-        <ul class="result-list">
-          ${obligations.map(row => `
-
-            <li>
-              ${escapeHtml(row.merchant || "Unknown merchant")}
-              —
-              ${escapeHtml(row.provider || "other")}
-              —
-              $${Number(
-                row.remaining_balance || 0
-              ).toFixed(2)}
-              remaining
-            </li>
-
-          `).join("")}
-        </ul>
-      `;
-
-    }
-
-
-    if (data.warnings && data.warnings.length) {
-
-      html += `
-        <div class="warning">
-          ${data.warnings
-            .map(escapeHtml)
-            .join("<br>")}
-        </div>
-      `;
-
-    }
-
-
-    document.getElementById("answer").innerHTML =
-      html;
-
-  }
-
-
-
-  /*
-   * -----------------------------
-   * RUN MAIN WORKFLOW
-   * -----------------------------
-   */
-
-  async function run(intent) {
-
-    const answer =
-      document.getElementById("answer");
-
-
-    const body = {
-
-      user_id:
-        document.getElementById("user").value || "demo",
-
-      thread_id:
-        threadId,
-
-      message:
-        document.getElementById("message").value,
-
-      available_cash:
-        Number(
-          document.getElementById("cash").value || 0
-        ),
-
-      intent
-
-    };
-
-
-    answer.classList.add("loading");
-
-    answer.innerHTML = `
-      <div class="result-status">
-        Working
-      </div>
-
-      Processing your request…
-    `;
-
-
-    document.getElementById("cites").textContent =
-      "";
-
-
-    try {
-
-      const response = await fetch(
-        "/run",
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type": "application/json"
-          },
-
-          body: JSON.stringify(body)
-        }
-      );
-
-
-      const data = await response.json();
-
-
-      if (!response.ok) {
-
-        answer.innerHTML = `
-          <div class="error">
-            ${escapeHtml(
-              data.detail ||
-              "Something went wrong."
-            )}
-          </div>
         `;
 
         return;
-
       }
 
+      const html = `
+        <table>
+          <thead>
+            <tr>
+              <th>Merchant</th>
+              <th>Provider</th>
+              <th>Next due</th>
+              <th>Payment</th>
+              <th>Remaining</th>
+            </tr>
+          </thead>
 
-      /*
-       * Extraction
-       */
+          <tbody>
+            ${rows.map(row => `
+              <tr>
+                <td>
+                  <strong>
+                    ${escapeHtml(
+                      row.merchant ||
+                      "Unknown"
+                    )}
+                  </strong>
+                </td>
+
+                <td>
+                  <span class="provider">
+                    ${escapeHtml(
+                      row.provider ||
+                      "other"
+                    )}
+                  </span>
+                </td>
+
+                <td>
+                  ${escapeHtml(
+                    row.next_due_date ||
+                    "—"
+                  )}
+                </td>
+
+                <td>
+                  $${Number(
+                    row.installment_amount ||
+                    0
+                  ).toFixed(2)}
+                </td>
+
+                <td>
+                  <strong>
+                    $${Number(
+                      row.remaining_balance ||
+                      0
+                    ).toFixed(2)}
+                  </strong>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+
+      table.innerHTML = html;
+    }
+
+
+    async function refresh() {
+      const user =
+        document.getElementById(
+          "user"
+        ).value || "demo";
+
+      try {
+        const response =
+          await fetch(
+            "/obligations/" +
+            encodeURIComponent(user)
+          );
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+          return;
+        }
+
+        renderTable(
+          data.obligations || []
+        );
+      } catch (error) {
+        console.error(
+          "Could not load obligations:",
+          error
+        );
+      }
+    }
+
+
+    function showExtraction(data) {
+      const obligations =
+        data.extracted || [];
+
+      let html = `
+        <div class="result-status">
+          Extraction complete
+        </div>
+
+        <strong>
+          ${obligations.length}
+          ${
+            obligations.length === 1
+              ? "payment plan"
+              : "payment plans"
+          }
+          found.
+        </strong>
+      `;
+
+      if (obligations.length) {
+        html += `
+          <ul class="result-list">
+            ${obligations.map(row => `
+              <li>
+                ${escapeHtml(
+                  row.merchant ||
+                  "Unknown merchant"
+                )}
+                —
+                ${escapeHtml(
+                  row.provider ||
+                  "other"
+                )}
+                —
+                $${Number(
+                  row.remaining_balance ||
+                  0
+                ).toFixed(2)}
+                remaining
+              </li>
+            `).join("")}
+          </ul>
+        `;
+      }
 
       if (
-        intent === "ingest" &&
-        data.obligations
+        data.warnings &&
+        data.warnings.length
       ) {
-
-        showExtraction(data);
-
-      }
-
-
-      /*
-       * Normal answer
-       */
-
-      else if (data.answer) {
-
-        answer.innerHTML = `
-          <div class="result-status">
-            Answer
+        html += `
+          <div class="warning">
+            ${data.warnings
+              .map(escapeHtml)
+              .join("<br>")}
           </div>
-
-          ${formatText(data.answer)}
         `;
-
       }
 
-
-      /*
-       * Payoff plan
-       */
-
-      else if (data.plan) {
-
-        answer.innerHTML = `
-          <div class="result-status">
-            Simulation
-          </div>
-
-          <pre style="
-            margin: 0;
-            white-space: pre-wrap;
-            font-family: inherit;
-            font-size: 12px;
-            line-height: 1.6;
-          ">${escapeHtml(
-            JSON.stringify(
-              data.plan,
-              null,
-              2
-            )
-          )}</pre>
-        `;
-
-      }
-
-
-      /*
-       * Unexpected response
-       */
-
-      else {
-
-        answer.innerHTML = `
-          <div class="result-status">
-            Result
-          </div>
-
-          <pre style="
-            margin: 0;
-            white-space: pre-wrap;
-            font-family: inherit;
-            font-size: 12px;
-          ">${escapeHtml(
-            JSON.stringify(
-              data,
-              null,
-              2
-            )
-          )}</pre>
-        `;
-
-      }
-
-
-      /*
-       * Citations
-       */
-
-      if (data.citations?.length) {
-
-        document.getElementById("cites").textContent =
-          "Sources: " +
-          data.citations
-            .map(
-              citation =>
-                `${citation.source} (${citation.score})`
-            )
-            .join(" · ");
-
-      }
-
-
-      /*
-       * Refresh stored obligations
-       */
-
-      await refresh();
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      answer.innerHTML = `
-        <div class="error">
-          Could not connect to AfterMath.
-          Make sure the server is running.
-        </div>
-      `;
-
-    } finally {
-
-      answer.classList.remove("loading");
-
-    }
-
-  }
-
-
-
-  /*
-   * -----------------------------
-   * FILE UPLOAD
-   * -----------------------------
-   */
-
-  async function upload() {
-
-    const file =
-      document.getElementById("file").files[0];
-
-
-    const answer =
-      document.getElementById("answer");
-
-
-    if (!file) {
-
-      answer.innerHTML = `
-        <div class="error">
-          Choose a statement file first.
-        </div>
-      `;
-
-      return;
-
+      document.getElementById(
+        "answer"
+      ).innerHTML = html;
     }
 
 
-    const user =
-      document.getElementById("user").value || "demo";
+    /*
+     * One extraction button handles both:
+     *
+     * 1. Uploaded files -> /ingest/file
+     * 2. Pasted text -> /ingest
+     */
+    async function extractPlans() {
+      const file =
+        document.getElementById(
+          "file"
+        ).files[0];
+
+      const message =
+        document.getElementById(
+          "message"
+        ).value.trim();
+
+      if (file) {
+        await upload();
+        return;
+      }
+
+      if (message) {
+        await run("ingest");
+        return;
+      }
+
+      document.getElementById(
+        "answer"
+      ).innerHTML = `
+        <div class="error">
+          Paste a statement or choose a file first.
+        </div>
+      `;
+    }
 
 
-    const formData =
-      new FormData();
+    async function run(intent) {
+      const answer =
+        document.getElementById(
+          "answer"
+        );
 
+      const body = {
+        user_id:
+          document.getElementById(
+            "user"
+          ).value || "demo",
 
-    formData.append(
-      "file",
-      file
-    );
+        thread_id:
+          threadId,
 
+        message:
+          document.getElementById(
+            "message"
+          ).value,
 
-    answer.innerHTML = `
-      <div class="result-status">
-        Working
-      </div>
+        available_cash:
+          Number(
+            document.getElementById(
+              "cash"
+            ).value || 0
+          ),
 
-      Extracting your statement…
-    `;
+        intent
+      };
 
-
-    try {
-
-      const response = await fetch(
-        "/ingest/file?user_id=" +
-        encodeURIComponent(user),
-        {
-          method: "POST",
-          body: formData
-        }
+      answer.classList.add(
+        "loading"
       );
 
+      answer.innerHTML = `
+        <div class="result-status">
+          Working
+        </div>
 
-      const data =
-        await response.json();
+        Processing your request…
+      `;
 
+      document.getElementById(
+        "cites"
+      ).textContent = "";
 
-      if (!response.ok) {
+      try {
+        const response =
+          await fetch(
+            "/run",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:
+                JSON.stringify(body)
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+          answer.innerHTML = `
+            <div class="error">
+              ${escapeHtml(
+                data.detail ||
+                "Something went wrong."
+              )}
+            </div>
+          `;
+
+          return;
+        }
+
+        if (
+          intent === "ingest" &&
+          data.extracted
+        ) {
+          showExtraction(data);
+
+        } else if (data.answer) {
+          const answerText =
+            typeof data.answer === "string"
+              ? data.answer
+              : data.answer?.content ||
+                data.answer?.text ||
+                JSON.stringify(
+                  data.answer,
+                  null,
+                  2
+                );
+
+          answer.innerHTML = `
+            <div class="result-status">
+              Answer
+            </div>
+
+            ${formatText(answerText)}
+          `;
+
+        } else if (data.plan) {
+          answer.innerHTML = `
+            <div class="result-status">
+              Simulation
+            </div>
+
+            <pre style="
+              margin: 0;
+              white-space: pre-wrap;
+              font-family: inherit;
+              font-size: 12px;
+              line-height: 1.6;
+            ">${escapeHtml(
+              JSON.stringify(
+                data.plan,
+                null,
+                2
+              )
+            )}</pre>
+          `;
+
+        } else {
+          answer.innerHTML = `
+            <div class="result-status">
+              Result
+            </div>
+
+            <pre style="
+              margin: 0;
+              white-space: pre-wrap;
+              font-family: inherit;
+              font-size: 12px;
+            ">${escapeHtml(
+              JSON.stringify(
+                data,
+                null,
+                2
+              )
+            )}</pre>
+          `;
+        }
+
+        if (data.citations?.length) {
+          document.getElementById(
+            "cites"
+          ).textContent =
+            "Sources: " +
+            data.citations
+              .map(
+                citation =>
+                  `${citation.source} (${citation.score})`
+              )
+              .join(" · ");
+        }
+
+        await refresh();
+
+      } catch (error) {
+        console.error(error);
 
         answer.innerHTML = `
           <div class="error">
-            ${escapeHtml(
-              data.detail ||
-              "Could not process the file."
-            )}
+            Could not connect to AfterMath.
+            Make sure the server is running.
+          </div>
+        `;
+      } finally {
+        answer.classList.remove(
+          "loading"
+        );
+      }
+    }
+
+
+    async function upload() {
+      const file =
+        document.getElementById(
+          "file"
+        ).files[0];
+
+      const answer =
+        document.getElementById(
+          "answer"
+        );
+
+      if (!file) {
+        answer.innerHTML = `
+          <div class="error">
+            Choose a statement file first.
           </div>
         `;
 
         return;
-
       }
 
+      const user =
+        document.getElementById(
+          "user"
+        ).value || "demo";
 
-      if (data.obligations) {
+      const formData =
+        new FormData();
 
-        showExtraction(data);
+      formData.append(
+        "file",
+        file
+      );
 
-      } else if (data.answer) {
+      answer.innerHTML = `
+        <div class="result-status">
+          Working
+        </div>
+
+        Extracting your statement…
+      `;
+
+      document.getElementById(
+        "cites"
+      ).textContent = "";
+
+      try {
+        const response =
+          await fetch(
+            "/ingest/file?user_id=" +
+            encodeURIComponent(user),
+            {
+              method: "POST",
+              body: formData
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+          answer.innerHTML = `
+            <div class="error">
+              ${escapeHtml(
+                data.detail ||
+                "Could not process the file."
+              )}
+            </div>
+          `;
+
+          return;
+        }
+
+        if (data.extracted) {
+          showExtraction(data);
+
+        } else if (data.answer) {
+          const answerText =
+            typeof data.answer === "string"
+              ? data.answer
+              : data.answer?.content ||
+                data.answer?.text ||
+                JSON.stringify(
+                  data.answer,
+                  null,
+                  2
+                );
+
+          answer.innerHTML = `
+            <div class="result-status">
+              Answer
+            </div>
+
+            ${formatText(answerText)}
+          `;
+        }
+
+        await refresh();
+
+      } catch (error) {
+        console.error(error);
+
+        answer.innerHTML = `
+          <div class="error">
+            Could not connect to AfterMath.
+          </div>
+        `;
+      }
+    }
+
+
+    async function clearData() {
+      const user =
+        document.getElementById(
+          "user"
+        ).value || "demo";
+
+      const confirmed =
+        window.confirm(
+          "Clear all stored AfterMath data for this user? This will delete their saved payment plans, uploaded documents, profile information, and conversation memory."
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+      const answer =
+        document.getElementById(
+          "answer"
+        );
+
+      answer.innerHTML = `
+        <div class="result-status">
+          Clearing
+        </div>
+
+        Removing your stored data…
+      `;
+
+      try {
+        const response =
+          await fetch(
+            "/user/" +
+            encodeURIComponent(user) +
+            "/data?thread_id=" +
+            encodeURIComponent(threadId),
+            {
+              method: "DELETE"
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+          answer.innerHTML = `
+            <div class="error">
+              ${escapeHtml(
+                data.detail ||
+                "Could not clear stored data."
+              )}
+            </div>
+          `;
+
+          return;
+        }
+
+        document.getElementById(
+          "message"
+        ).value = "";
+
+        document.getElementById(
+          "file"
+        ).value = "";
+
+        document.getElementById(
+          "cites"
+        ).textContent = "";
 
         answer.innerHTML = `
           <div class="result-status">
-            Result
+            Cleared
           </div>
 
-          ${formatText(data.answer)}
+          Your stored AfterMath data has been removed.
         `;
 
+        await refresh();
+
+      } catch (error) {
+        console.error(error);
+
+        answer.innerHTML = `
+          <div class="error">
+            Could not clear stored data.
+            Make sure the server is running.
+          </div>
+        `;
       }
-
-
-      await refresh();
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      answer.innerHTML = `
-        <div class="error">
-          Could not connect to AfterMath.
-        </div>
-      `;
-
     }
 
-  }
 
-
-
-  /*
-   * Initial load
-   */
-
-  refresh();
-
-</script>
-
+    refresh();
+  </script>
 </body>
 </html>
