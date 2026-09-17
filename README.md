@@ -483,6 +483,8 @@ Activate it on Windows PowerShell:
 
 ```powershell
 pip install -r requirements.txt
+pip install PyMuPDF
+pip install -U langchain-google-genai
 ```
 
 ### 4. Configure environment variables
